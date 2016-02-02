@@ -8,14 +8,4 @@ A Jenkins plugin which sends Particle.io devices the status of a build.
 ## Usage
 - Manually configure an access token to use for the plugin in the Jenkins global configuration.
 - Add a build step or post build action of "Send build status to a Particle device"
-- Set the name of the event to send to the device on build status change.
-
-## Data
-- The event sent when used as a **build step** will be:
--     name: <your event name>, data: "BUILDING"
-- The event sent when used as a **post build step** will be:
--     name: <your event name>, data: "SUCCESS"
-- or:
--     name: <your event name>, data: "FAILURE"
-- or:
--     name: <your event name>, data: "NONE"
+- Set the name and data of the events to send to the device on build status change.
