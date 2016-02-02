@@ -3,4 +3,13 @@
   <f:entry title="Event Name">
   	<f:textbox field="eventName"/>
   </f:entry>
+  <f:entry title="Event Data (Successful Build)">
+  	<f:textbox field="successEventData"/>
+  </f:entry>
+  <f:entry title="Event Data (Failed Build)">
+  	<f:textbox field="failureEventData"/>
+  </f:entry>
+  <f:entry title="Event Data (Cancelled Build/Other)">
+  	<f:textbox field="noneEventData"/>
+  </f:entry>
 </j:jelly>

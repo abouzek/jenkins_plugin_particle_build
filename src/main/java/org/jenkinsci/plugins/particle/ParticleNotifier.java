@@ -26,21 +26,52 @@ import org.apache.http.client.fluent.Request;
 public class ParticleNotifier extends Notifier {
 
     private final String eventName;
+    private final String successEventData;
+    private final String failureEventData;
+    private final String noneEventData;
 
     @DataBoundConstructor
-    public ParticleNotifier(String deviceId, String eventName) {
+    public ParticleNotifier(String eventName, String successEventData,
+        String failureEventData, String noneEventData) {
         this.eventName = eventName;
+        this.successEventData = successEventData;
+        this.failureEventData = failureEventData;
+        this.noneEventData = noneEventData;
     }
 
     public String getEventName() {
         return eventName;
     }
 
+    public String getSuccessEventData() {
+        return successEventData;
+    }
+
+    public String getFailureEventData() {
+        return failureEventData;
+    }
+
+    public String getNoneEventData() {
+        return noneEventData;
+    }
+
+    private String convertToString(BallColor ballColor) {
+        if (ballColor == BallColor.RED) {
+            return getFailureEventData();
+        }
+        else if (ballColor == BallColor.BLUE) {
+            return getSuccessEventData();
+        }
+        else {
+            return getNoneEventData();
+        }
+    }
+
     @Override
     public boolean perform(AbstractBuild build, Launcher launcher, BuildListener listener) {
         BallColor ballColor = build.getResult().color;
         String accessToken = getDescriptor().getAccessToken();
-        int code = ParticleUtil.sendParticleEvent(accessToken, getEventName(), ballColor);
+        int code = ParticleUtil.sendParticleEvent(accessToken, getEventName(), convertToString(ballColor));
         listener.getLogger().println("POST-BUILD STEP Particle device return code: " + code);
         return (code == 200);
     }

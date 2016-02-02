@@ -11,12 +11,12 @@ public final class ParticleUtil {
     public static final String PUBLISH_API_STRING = BASE_API_STRING + "events";
 
     public static int sendParticleEvent(
-        String accessToken, String eventName, BallColor ballColor) {
+        String accessToken, String eventName, String eventData) {
         try {
             int code = Request.Post(PUBLISH_API_STRING)
                         .bodyForm(Form.form()
                             .add("name", eventName)
-                            .add("data", convertToString(ballColor))
+                            .add("data", eventData)
                             .build()
                         )
                 .addHeader("Authorization", "Bearer " + accessToken)
@@ -27,21 +27,6 @@ public final class ParticleUtil {
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
-        }
-    }
-
-    private static String convertToString(BallColor ballColor) {
-        if (ballColor == BallColor.RED) {
-            return "FAILURE";
-        }
-        else if (ballColor == BallColor.BLUE) {
-            return "SUCCESS";
-        }
-        else if (ballColor == BallColor.YELLOW) {
-            return "BUILDING";
-        }
-        else {
-            return "NONE";
         }
     }
 

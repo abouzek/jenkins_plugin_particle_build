@@ -3,4 +3,7 @@
   <f:entry title="Event Name">
   	<f:textbox field="eventName"/>
   </f:entry>
+  <f:entry title="Event Data (Building Step)">
+  	<f:textbox field="buildingEventData"/>
+  </f:entry>
 </j:jelly>
